@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Food System - Home</title>
+</head>
+<body>
+    <h1>Welcome to Food System</h1>
+    <nav>
+        <a href="{% url 'register' %}">Register</a> |
+        <a href="{% url 'login' %}">Login</a>
+    </nav>
+    {% if user.is_authenticated %}
+        <p>Hello, {{ user.username }}! You are logged in.</p>
+    {% else %}
+        <p>Please register or login to continue.</p>
+    {% endif %}
+</body>
+</html>

@@ -1,13 +1,14 @@
 <!DOCTYPE html>
+<html>
 <head>
-    <titke>Register page</title>
-    </head>
-    <body>
-        <h1>REGISTER PAGE</h1>
-        <form method="POST">
-           {% csrf_token %}
-           <{{form.as_p}}
-           <button type="submit">Register</button>
-        </form>
-    </body>
-    </html>
+    <title>Register page</title>
+</head>
+<body>
+    <h1>REGISTER PAGE</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Register</button>
+    </form>
+</body>
+</html>
