@@ -79,9 +79,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'foodsystem',
         'USER': 'root',
-        'PASSWORD': 'mavella2321',
+        'PASSWORD': 'Senior.P',
         'HOST': 'localhost',
-        'PORT': '3307',
     }
 }
 
