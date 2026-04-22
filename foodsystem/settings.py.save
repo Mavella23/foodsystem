@@ -72,17 +72,12 @@ WSGI_APPLICATION = 'foodsystem.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'foodsystem',
+# https://docs.djang        'NAME': 'foodsystem',
         'USER': 'root',
-        'PASSWORD': 'Mavella 23',
+        'PASSWORD': 'Senior.P',
         'HOST': 'localhost',
-        'PORT': '3306'
     }
+
 }
 
 
