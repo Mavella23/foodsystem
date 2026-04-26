@@ -2,18 +2,55 @@
 {% block title %}Register — FoodSystem{% endblock %}
 
 {% block content %}
+<!-- Registration page: centered card form -->
 <div class="form-page">
     <div class="form-card">
+
+        <!-- Card heading and link to login -->
         <h2 class="form-card__title">Create an account</h2>
         <p class="form-card__sub">
             Already have an account? <a href="{% url 'login' %}">Login</a>
         </p>
 
-        <form method="POST">
+        <!-- Registration form — POST to the same URL, novalidate lets Django handle validation -->
+        <form method="POST" novalidate>
             {% csrf_token %}
-            {{ form.as_p }}
+
+            <!-- Loop through each form field (username, role, email, password1, password2) -->
+            {% for field in form %}
+            <div class="field-group">
+
+                <!-- Field label e.g. "Username", "Role" -->
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+
+                <!-- The actual input or select element -->
+                {{ field }}
+
+                <!-- Show field-level errors directly under the input -->
+                {% if field.errors %}
+                    {% for error in field.errors %}
+                        <span class="field-error">{{ error }}</span>
+                    {% endfor %}
+                {% endif %}
+
+                <!-- Show help text e.g. password requirements -->
+                {% if field.help_text %}
+                    <span class="field-help">{{ field.help_text }}</span>
+                {% endif %}
+
+            </div>
+            {% endfor %}
+
+            <!-- Show non-field errors e.g. passwords don't match -->
+            {% if form.non_field_errors %}
+                {% for error in form.non_field_errors %}
+                    <div class="alert alert-error">{{ error }}</div>
+                {% endfor %}
+            {% endif %}
+
             <button type="submit" class="btn btn-primary">Register</button>
         </form>
+
     </div>
 </div>
 {% endblock %}

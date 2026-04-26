@@ -281,6 +281,37 @@ img { max-width: 100%; display: block; }
 .form-card__sub a { color: var(--primary); font-weight: 600; }
 .form-card__sub a:hover { text-decoration: underline; }
 
+/* Field groups */
+.field-group {
+    margin-bottom: calc(var(--spacing) * 2.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.field-error {
+    color: #c0392b;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.field-error::before { content: '⚠ '; }
+
+.field-help {
+    color: var(--muted);
+    font-size: 0.78rem;
+    margin-top: 4px;
+    line-height: 1.4;
+}
+
+/* Input error state */
+.field-group:has(.field-error) input,
+.field-group:has(.field-error) select {
+    border-color: #c0392b;
+    background: #fef9f9;
+}
+
 /* Django form auto-render (as_p) */
 .form-card p { margin-bottom: calc(var(--spacing) * 2); }
 

@@ -15,16 +15,24 @@
             {% endfor %}
         {% endif %}
 
-        <form method="POST">
+        <form method="POST" novalidate>
             {% csrf_token %}
-            <p>
+
+            <div class="field-group">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" placeholder="Enter your username" required>
-            </p>
-            <p>
+                <input type="text" id="username" name="username"
+                       placeholder="Enter your username"
+                       value="{{ request.POST.username }}"
+                       required>
+            </div>
+
+            <div class="field-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            </p>
+                <input type="password" id="password" name="password"
+                       placeholder="Enter your password"
+                       required>
+            </div>
+
             <button type="submit" class="btn btn-primary">Login</button>
         </form>
     </div>
