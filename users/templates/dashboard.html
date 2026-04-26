@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+   <h1>Welcome {{ request.user.username }}</h1>
+
+{% if request.user.role == 'customer' %}
+    <h2>Customer Dashboard</h2>
+    <p>Browse food and place orders 🍔</p>
+
+{% elif request.user.role == 'vendor' %}
+    <h2>Vendor Dashboard</h2>
+    <p>Add and manage your menu 🍕</p>
+
+{% elif request.user.role == 'delivery' %}
+    <h2>Delivery Dashboard</h2>
+    <p>View and deliver orders 🚚</p>
+
+{% elif request.user.role == 'admin' %}
+    <h2>Admin Dashboard</h2>
+    <p>Manage system and users ⚙️</p>
+
+{% endif %}
+
+</html>
