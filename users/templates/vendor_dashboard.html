@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Vendor Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f5f5f5; }
+        .navbar { background: #2ecc71; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        .navbar h2 { margin: 0; }
+        .navbar a { color: white; text-decoration: none; background: rgba(0,0,0,0.2); padding: 8px 16px; border-radius: 4px; }
+        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
+        .welcome { background: white; padding: 25px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .card { background: white; padding: 25px; border-radius: 8px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        .card h3 { margin: 0 0 8px; color: #2ecc71; font-size: 2em; }
+        .card p { margin: 0; color: #666; }
+        .btn { display: inline-block; margin-top: 15px; padding: 10px 20px; background: #2ecc71; color: white; border-radius: 4px; text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h2>🍽️ FoodSystem — Vendor</h2>
+        <span>Hello, {{ request.user.username }} | <a href="{% url 'logout' %}">Logout</a></span>
+    </div>
+    <div class="container">
+        <div class="welcome">
+            <h2>Vendor Panel — {{ request.user.username }}</h2>
+            <p>Manage your menu, view orders, and track your earnings.</p>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <h3>🍕</h3>
+                <p>My Food Items</p>
+                <a href="#" class="btn">Manage Menu</a>
+            </div>
+            <div class="card">
+                <h3>📋</h3>
+                <p>Incoming Orders</p>
+                <a href="#" class="btn">View Orders</a>
+            </div>
+            <div class="card">
+                <h3>💰</h3>
+                <p>Earnings</p>
+                <a href="#" class="btn">View Report</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
