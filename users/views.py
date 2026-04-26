@@ -4,6 +4,11 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import login, authenticate
 from django.contrib.auth import authenticate, login
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def dashboard (request):
+    return render (request, 'dashboard.html')
 def home(request):
     return render(request, 'home.html')
 def register(request):
@@ -23,15 +28,12 @@ def login_view(request):
         user=authenticate(request, username=username,password=password)
         if user is not None:
             login(request,user)
-        if user.role == 'customer':
-              return redirect("home")
-        elif user.role == 'vendor':
-                return redirect("vendor_dashboard")
-        elif user.role == 'delivery':
-                return redirect("delivery_dashboard")
-        elif user.role == 'admin':
-                return redirect("admin_dashboard")
+            return redirect('dashboard')   # 👈 HAPA NDIO IMPORTANT
 
-    else:
-         messages.error(request,"username or password is incorrect")
-         return render(request,"login.html")
+        else:
+            messages.error(request, "Username or password is incorrect")
+
+    return render(request, "login.html")
+            
+           
+    

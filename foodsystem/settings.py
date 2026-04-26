@@ -75,14 +75,15 @@ WSGI_APPLICATION = 'foodsystem.wsgi.application'
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
 DATABASES = {
-          'default': {
+  'default':
+      {
   'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'foodsystem_db',
+        'NAME': 'mavella_db',
         'USER': 'root',
         'PASSWORD': 'Mavella@23',
         'HOST': 'localhost',
         'PORT': '3306'
-    }
+      }
 }
 
 
@@ -123,4 +124,5 @@ USE_TZ = True
 STATIC_URL = 'static/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
+LOGIN_URL = 'login'
 
