@@ -1,18 +1,21 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Food System - Home</title>
-</head>
-<body>
-    <h1>Welcome to Food System</h1>
-    <nav>
-        <a href="{% url 'register' %}">Register</a> |
-        <a href="{% url 'login' %}">Login</a>
-    </nav>
-    {% if user.is_authenticated %}
-        <p>Hello, {{ user.username }}! You are logged in.</p>
-    {% else %}
-        <p>Please register or login to continue.</p>
-    {% endif %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}FoodSystem — Home{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero__inner">
+        <div class="hero__badge">🚀 Now Available</div>
+        <h1 class="hero__title">
+            Order Food,<br><span>Fast & Fresh</span>
+        </h1>
+        <p class="hero__subtitle">
+            Connect with the best local vendors, track your delivery in real time,
+            and enjoy every meal delivered right to your door.
+        </p>
+        <div class="hero__actions">
+            <a href="{% url 'register' %}" class="btn btn-primary">Get Started</a>
+            <a href="{% url 'login' %}" class="btn btn-outline">Login</a>
+        </div>
+    </div>
+</section>
+{% endblock %}

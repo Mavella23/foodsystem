@@ -1,138 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Dashboard - {{ request.user.get_role_display }}</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        body { font-family: Arial, sans-serif; background: #f5f5f5; }
+{% extends 'base.html' %}
+{% block title %}Dashboard — FoodSystem{% endblock %}
 
-        .navbar {
-            color: white;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .navbar.customer  { background: #e74c3c; }
-        .navbar.vendor    { background: #2ecc71; }
-        .navbar.delivery  { background: #3498db; }
-        .navbar.admin     { background: #2c3e50; }
+{% block navbar_class %}
+    {% if request.user.role == 'customer' %}customer
+    {% elif request.user.role == 'vendor' %}vendor
+    {% elif request.user.role == 'delivery' %}delivery
+    {% elif request.user.role == 'admin' %}admin
+    {% endif %}
+{% endblock %}
 
-        .navbar h2 { font-size: 1.2em; }
-        .navbar a  { color: white; text-decoration: none; background: rgba(0,0,0,0.2); padding: 8px 16px; border-radius: 4px; margin-left: 10px; }
-
-        .container { max-width: 1000px; margin: 40px auto; padding: 0 20px; }
-
-        .welcome { background: white; padding: 25px; border-radius: 8px; margin-bottom: 25px; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-        .welcome h2 { margin-bottom: 6px; }
-        .welcome p  { color: #666; }
-
-        .cards { display: grid; gap: 20px; }
-        .cards.cols-3 { grid-template-columns: repeat(3, 1fr); }
-        .cards.cols-4 { grid-template-columns: repeat(4, 1fr); }
-
-        .card { background: white; padding: 25px; border-radius: 8px; text-align: center; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
-        .card .icon { font-size: 2.5em; margin-bottom: 10px; }
-        .card p { color: #666; margin-bottom: 12px; }
-        .btn { display: inline-block; padding: 9px 18px; color: white; border-radius: 4px; text-decoration: none; font-size: 0.9em; }
-        .btn.red   { background: #e74c3c; }
-        .btn.green { background: #2ecc71; }
-        .btn.blue  { background: #3498db; }
-        .btn.dark  { background: #2c3e50; }
-    </style>
-</head>
-<body>
-
-{% if request.user.role == 'customer' %}
-<div class="navbar customer">
-    <h2>🍔 FoodSystem — Customer</h2>
-    <span>Hello, {{ request.user.username }}
-        <a href="{% url 'logout' %}">Logout</a>
-    </span>
-</div>
-<div class="container">
-    <div class="welcome">
-        <h2>Welcome back, {{ request.user.username }}!</h2>
-        <p>Browse food, place orders, and track your deliveries.</p>
-    </div>
-    <div class="cards cols-3">
-        <div class="card"><div class="icon">🛒</div><p>Browse Menu</p><a href="#" class="btn red">Order Now</a></div>
-        <div class="card"><div class="icon">📦</div><p>My Orders</p><a href="#" class="btn red">View Orders</a></div>
-        <div class="card"><div class="icon">📍</div><p>Track Delivery</p><a href="#" class="btn red">Track</a></div>
-    </div>
-</div>
-
-{% elif request.user.role == 'vendor' %}
-<div class="navbar vendor">
-    <h2>🍽️ FoodSystem — Vendor</h2>
-    <span>Hello, {{ request.user.username }}
-        <a href="{% url 'logout' %}">Logout</a>
-    </span>
-</div>
-<div class="container">
-    <div class="welcome">
-        <h2>Vendor Panel — {{ request.user.username }}</h2>
-        <p>Manage your menu, view orders, and track your earnings.</p>
-    </div>
-    <div class="cards cols-3">
-        <div class="card"><div class="icon">🍕</div><p>My Food Items</p><a href="#" class="btn green">Manage Menu</a></div>
-        <div class="card"><div class="icon">📋</div><p>Incoming Orders</p><a href="#" class="btn green">View Orders</a></div>
-        <div class="card"><div class="icon">💰</div><p>Earnings</p><a href="#" class="btn green">View Report</a></div>
-    </div>
-</div>
-
-{% elif request.user.role == 'delivery' %}
-<div class="navbar delivery">
-    <h2>🚴 FoodSystem — Delivery</h2>
-    <span>Hello, {{ request.user.username }}
-        <a href="{% url 'logout' %}">Logout</a>
-    </span>
-</div>
-<div class="container">
-    <div class="welcome">
-        <h2>Delivery Panel — {{ request.user.username }}</h2>
-        <p>View assigned orders, update status, and manage your trips.</p>
-    </div>
-    <div class="cards cols-3">
-        <div class="card"><div class="icon">📦</div><p>Assigned Orders</p><a href="#" class="btn blue">View Orders</a></div>
-        <div class="card"><div class="icon">✅</div><p>Mark Delivered</p><a href="#" class="btn blue">Update Status</a></div>
-        <div class="card"><div class="icon">🗺️</div><p>Delivery Map</p><a href="#" class="btn blue">Open Map</a></div>
-    </div>
-</div>
-
-{% elif request.user.role == 'admin' %}
-<div class="navbar admin">
-    <h2>⚙️ FoodSystem — Admin</h2>
-    <span>Hello, {{ request.user.username }}
+{% block extra_nav %}
+    {% if request.user.role == 'admin' %}
         <a href="/admin/">Django Admin</a>
-        <a href="{% url 'logout' %}">Logout</a>
-    </span>
-</div>
-<div class="container">
-    <div class="welcome">
-        <h2>Admin Control Panel</h2>
-        <p>Manage users, vendors, orders, and system settings.</p>
-    </div>
-    <div class="cards cols-4">
-        <div class="card"><div class="icon">👥</div><p>Users</p><a href="/admin/users/user/" class="btn dark">Manage</a></div>
-        <div class="card"><div class="icon">🍽️</div><p>Vendors</p><a href="#" class="btn dark">Manage</a></div>
-        <div class="card"><div class="icon">📋</div><p>All Orders</p><a href="#" class="btn dark">View</a></div>
-        <div class="card"><div class="icon">📊</div><p>Reports</p><a href="#" class="btn dark">View</a></div>
-    </div>
-</div>
+    {% endif %}
+{% endblock %}
 
-{% else %}
-<div class="navbar" style="background:#999;">
-    <h2>FoodSystem</h2>
-    <a href="{% url 'logout' %}" style="color:white;">Logout</a>
-</div>
-<div class="container">
-    <div class="welcome">
-        <h2>Hello, {{ request.user.username }}</h2>
-        <p>Your account has no role assigned. Please contact admin.</p>
+{% block content %}
+<div class="dashboard">
+    <div class="container">
+
+        {% if request.user.role == 'customer' %}
+        <div class="dashboard__welcome">
+            <div>
+                <h2>Welcome back, {{ request.user.username }}!</h2>
+                <p>Browse food, place orders, and track your deliveries.</p>
+            </div>
+            <span class="dashboard__role-badge badge-customer">Customer</span>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <div class="card__icon">🛒</div>
+                <div class="card__label">Browse Menu</div>
+                <p>Find meals from local vendors</p>
+                <a href="#" class="btn btn-primary">Order Now</a>
+            </div>
+            <div class="card">
+                <div class="card__icon">📦</div>
+                <div class="card__label">My Orders</div>
+                <p>View your order history</p>
+                <a href="#" class="btn btn-primary">View Orders</a>
+            </div>
+            <div class="card">
+                <div class="card__icon">📍</div>
+                <div class="card__label">Track Delivery</div>
+                <p>Follow your order in real time</p>
+                <a href="#" class="btn btn-primary">Track</a>
+            </div>
+        </div>
+
+        {% elif request.user.role == 'vendor' %}
+        <div class="dashboard__welcome">
+            <div>
+                <h2>Vendor Panel — {{ request.user.username }}</h2>
+                <p>Manage your menu, view orders, and track your earnings.</p>
+            </div>
+            <span class="dashboard__role-badge badge-vendor">Vendor</span>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <div class="card__icon">🍕</div>
+                <div class="card__label">My Food Items</div>
+                <p>Add, edit, or remove menu items</p>
+                <a href="#" class="btn btn-success">Manage Menu</a>
+            </div>
+            <div class="card">
+                <div class="card__icon">📋</div>
+                <div class="card__label">Incoming Orders</div>
+                <p>See and manage new orders</p>
+                <a href="#" class="btn btn-success">View Orders</a>
+            </div>
+            <div class="card">
+                <div class="card__icon">💰</div>
+                <div class="card__label">Earnings</div>
+                <p>Track your revenue and reports</p>
+                <a href="#" class="btn btn-success">View Report</a>
+            </div>
+        </div>
+
+        {% elif request.user.role == 'delivery' %}
+        <div class="dashboard__welcome">
+            <div>
+                <h2>Delivery Panel — {{ request.user.username }}</h2>
+                <p>View assigned orders, update status, and manage your trips.</p>
+            </div>
+            <span class="dashboard__role-badge badge-delivery">Delivery</span>
+        </div>
+        <div class="cards">
+            <div class="card">
+                <div class="card__icon">📦</div>
+                <div class="card__label">Assigned Orders</div>
+                <p>Orders ready for pickup</p>
+                <a href="#" class="btn btn-blue">View Orders</a>
+            </div>
+            <div class="card">
+                <div class="card__icon">✅</div>
+                <div class="card__label">Mark Delivered</div>
+                <p>Update delivery status</p>
+                <a href="#" class="btn btn-blue">Update Status</a>
+            </div>
+            <div class="card">
+                <div class="card__icon">🗺️</div>
+                <div class="card__label">Delivery Map</div>
+                <p>Navigate to customer location</p>
+                <a href="#" class="btn btn-blue">Open Map</a>
+            </div>
+        </div>
+
+        {% elif request.user.role == 'admin' %}
+        <div class="dashboard__welcome">
+            <div>
+                <h2>Admin Control Panel</h2>
+                <p>Manage users, vendors, orders, and system settings.</p>
+            </div>
+            <span class="dashboard__role-badge badge-admin">Admin</span>
+        </div>
+        <div class="cards cols-4">
+            <div class="card">
+                <div class="card__icon">👥</div>
+                <div class="card__label">Users</div>
+                <p>Manage all system users</p>
+                <a href="/admin/users/user/" class="btn btn-dark">Manage</a>
+            </div>
+            <div class="card">
+                <div class="card__icon">🍽️</div>
+                <div class="card__label">Vendors</div>
+                <p>Oversee vendor accounts</p>
+                <a href="#" class="btn btn-dark">Manage</a>
+            </div>
+            <div class="card">
+                <div class="card__icon">📋</div>
+                <div class="card__label">All Orders</div>
+                <p>View and manage all orders</p>
+                <a href="#" class="btn btn-dark">View</a>
+            </div>
+            <div class="card">
+                <div class="card__icon">📊</div>
+                <div class="card__label">Reports</div>
+                <p>System analytics and stats</p>
+                <a href="#" class="btn btn-dark">View</a>
+            </div>
+        </div>
+
+        {% else %}
+        <div class="dashboard__welcome">
+            <div>
+                <h2>Hello, {{ request.user.username }}</h2>
+                <p>Your account has no role assigned. Please contact the admin.</p>
+            </div>
+        </div>
+        {% endif %}
+
     </div>
 </div>
-{% endif %}
-
-</body>
-</html>
+{% endblock %}

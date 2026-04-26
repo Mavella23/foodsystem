@@ -1,15 +1,32 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Login page</title>
-</head>
-<body>
-    <h1>LOGIN PAGE</h1>
-    <form method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Login</button>
-    </form>
-    <p>Don't have an account? <a href="{% url 'register' %}">Register here</a></p>
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}Login — FoodSystem{% endblock %}
+
+{% block content %}
+<div class="form-page">
+    <div class="form-card">
+        <h2 class="form-card__title">Welcome back</h2>
+        <p class="form-card__sub">
+            Don't have an account? <a href="{% url 'register' %}">Register</a>
+        </p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-error">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <p>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            </p>
+            <p>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            </p>
+            <button type="submit" class="btn btn-primary">Login</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

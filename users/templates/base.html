@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FoodSystem{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'users/css/style.css' %}">
+</head>
+<body>
+
+    <nav class="navbar {% block navbar_class %}{% endblock %}">
+        <a class="navbar__logo" href="{% url 'home' %}">🍔 Food<span>System</span></a>
+        <div class="navbar__links">
+            {% if request.user.is_authenticated %}
+                <span class="navbar__user">{{ request.user.username }}</span>
+                {% block extra_nav %}{% endblock %}
+                <form method="POST" action="{% url 'logout' %}" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-logout">Logout</button>
+                </form>
+            {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                <a href="{% url 'register' %}">Register</a>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% if messages %}
+    <div class="messages">
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    {% block content %}{% endblock %}
+
+    <footer>
+        <p>&copy; 2026 <span>FoodSystem</span>. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
