@@ -78,9 +78,9 @@ WSGI_APPLICATION = 'foodsystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mavella_db',
+        'NAME': 'massawe_db',
         'USER': 'root',
-        'PASSWORD': 'Mavella@23',
+        'PASSWORD': 'Senior.P',
         'HOST': 'localhost',
         'PORT': '3306',
     }
