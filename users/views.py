@@ -4,13 +4,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 
-ROLE_REDIRECT = {
-    'customer': 'customer_dashboard',
-    'vendor': 'vendor_dashboard',
-    'delivery': 'delivery_dashboard',
-    'admin': 'admin_dashboard',
-}
-
 def home(request):
     return render(request, 'home.html')
 
@@ -32,24 +25,11 @@ def login_view(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            redirect_url = ROLE_REDIRECT.get(user.role, 'home')
-            return redirect(redirect_url)
+            return redirect('dashboard')
         else:
             messages.error(request, 'Username or password is incorrect')
     return render(request, 'login.html')
 
 @login_required
-def customer_dashboard(request):
-    return render(request, 'customer_dashboard.html')
-
-@login_required
-def vendor_dashboard(request):
-    return render(request, 'vendor_dashboard.html')
-
-@login_required
-def delivery_dashboard(request):
-    return render(request, 'delivery_dashboard.html')
-
-@login_required
-def admin_dashboard(request):
-    return render(request, 'admin_dashboard.html')
+def dashboard(request):
+    return render(request, 'dashboard.html')
