@@ -4,24 +4,82 @@
     <title>Dashboard</title>
 </head>
 <body>
-   <h1>Welcome {{ request.user.username }}</h1>
+   <div class="dashboard-layout">
 
-{% if request.user.role == 'customer' %}
-    <h2>Customer Dashboard</h2>
-    <p>Browse food and place orders 🍔</p>
+    <!-- SIDEBAR: links change based on role -->
+    <aside class="sidebar">
+        <ul class="sidebar-menu">
+            {% if request.user.role == 'customer' %}
+                <li><a href="#" class="sidebar-link active">Home</a></li>
+                <li><a href="#" class="sidebar-link">Browse Food</a></li>
+                <li><a href="#" class="sidebar-link">My Orders</a></li>
 
-{% elif request.user.role == 'vendor' %}
-    <h2>Vendor Dashboard</h2>
-    <p>Add and manage your menu 🍕</p>
+            {% elif request.user.role == 'vendor' %}
+                <li><a href="#" class="sidebar-link active"> Home</a></li>
+                <li><a href="#" class="sidebar-link">My Menu</a></li>
+                <li><a href="#" class="sidebar-link">Orders</a></li>
 
-{% elif request.user.role == 'delivery' %}
-    <h2>Delivery Dashboard</h2>
-    <p>View and deliver orders 🚚</p>
+            {% elif request.user.role == 'delivery' %}
+                <li><a href="#" class="sidebar-link active">Home</a></li>
+                <li><a href="#" class="sidebar-link">Deliveries</a></li>
 
-{% elif request.user.role == 'admin' %}
-    <h2>Admin Dashboard</h2>
-    <p>Manage system and users ⚙️</p>
+            {% elif request.user.role == 'admin' %}
+                <li><a href="#" class="sidebar-link active"> Home</a></li>
+                <li><a href="#" class="sidebar-link">Users</a></li>
+                <li><a href="#" class="sidebar-link"> Vendors</a></li>
+                <li><a href="#" class="sidebar-link">Reports</a></li>
+            {% endif %}
+        </ul>
+    </aside>
 
-{% endif %}
+    <!-- MAIN DASHBOARD AREA -->
+    <div class="dashboard-main">
+        <h1 class="dashboard-title">Welcome, {{ request.user.username }} 👋</h1>
+
+        <!-- STAT CARDS: quick overview numbers -->
+        <div class="stats-grid">
+            {% if request.user.role == 'customer' %}
+                <div class="stat-card">
+                    <span class="stat-number">3</span>
+                    <span class="stat-label">Active Orders</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">12</span>
+                    <span class="stat-label">Past Orders</span>
+                </div>
+
+            {% elif request.user.role == 'vendor' %}
+                <div class="stat-card">
+                    <span class="stat-number">8</span>
+                    <span class="stat-label">Menu Items</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">5</span>
+                    <span class="stat-label">Pending Orders</span>
+                </div>
+
+            {% elif request.user.role == 'admin' %}
+                <div class="stat-card">
+                    <span class="stat-number">120</span>
+                    <span class="stat-label">Total Users</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">34</span>
+                    <span class="stat-label">Vendors</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">89</span>
+                    <span class="stat-label">Orders Today</span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+<form method="post" action="{% url 'logout' %}">
+  {% csrf_token %}
+  <button type="submit">Logout</button>
+</form>
+</body>
 
 </html>
