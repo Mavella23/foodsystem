@@ -32,3 +32,6 @@ Thumbs.db
 
 # MySQL dump or local database backups
 *.sql
+
+ROADMAP.md
+.env
