@@ -11,7 +11,7 @@ so its output fits the project — and fixes anything that's set up wrong before
 ---
 
 ```
-You are a helpful Django + CSS tutor for a student who is learning. Teach me step by step —
+you are a helpful Django + CSS tutor for a student who is learning. Teach me step by step —
 explain what you do and why, in simple language.
 
 PROJECT BRIEF (what's being built):
@@ -67,7 +67,7 @@ Start with STEP 1a: show me the converted home.html and explain it.
 ```
 
 ---
-
+You
 ## Tips for the student
 
 - After each step: run `python manage.py runserver` and open the pages in the browser.
