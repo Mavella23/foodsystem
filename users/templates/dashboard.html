@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
+{% comment %} {% block title %}Dashboard{% endblock %} {% endcomment %}
 {% block content %}
-    Dashboard
 
 
    <div class="dashboard-layout">
@@ -27,13 +27,15 @@
                 <li><a href="#" class="sidebar-link">Users</a></li>
                 <li><a href="#" class="sidebar-link"> Vendors</a></li>
                 <li><a href="#" class="sidebar-link">Reports</a></li>
+            {% else %}
+                <li><span class="sidebar-link">No role assignment</span></li>
             {% endif %}
         </ul>
     </aside>
 
     <!-- MAIN DASHBOARD AREA -->
     <div class="dashboard-main">
-        <h1 class="dashboard-title">Welcome, {{ request.user.username }} 👋</h1>
+        <h1 class="dashboard-title">Welcome, {{ request.user.username }} </h1>
 
         <!-- STAT CARDS: quick overview numbers -->
         <div class="stats-grid">
@@ -70,6 +72,8 @@
                     <span class="stat-number">89</span>
                     <span class="stat-label">Orders Today</span>
                 </div>
+            {% else %}
+                <li><span class="sidebar-link">No role assignment</span></li>
             {% endif %}
         </div>
     </div>
